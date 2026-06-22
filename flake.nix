@@ -9,6 +9,7 @@
         type = "github";
 	owner = "nix-community";
 	repo = "home-manager";
+	ref = "release-26.05";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       lanzaboote = {

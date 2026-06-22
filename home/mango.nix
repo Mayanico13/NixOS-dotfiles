@@ -3,6 +3,10 @@
 {
   wayland.windowManager.mango = {
     enable = true;
+
+    autostart_sh = ''
+      waybar
+    '';
     
     extraConfig = ''
       monitorrule=name:DP-1,width:1920,height:1080,refresh:144,x:0,y:0
@@ -20,6 +24,8 @@
       animation_type_close = "slide";
       animation_duration_open = 400;
       animation_duration_close = 400;
+
+      xkb_rules_layout = "it";
 
       # Keybinds
       bind = [

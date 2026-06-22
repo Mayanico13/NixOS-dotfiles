@@ -12,19 +12,25 @@
 		    "DP-1"
 		];
 		modules-left = [
-		    "hyprland/workspaces"
-		    "hyprland/submap"
-		    "wlr/taskbar"
+		    "ext/workspaces"
 		];
 		modules-center = [
-		    "hyprland/window"
+		    "dwl/window"
 		];
 		modules-right = [
 		    "clock"
 		];
 		
-		"hyprland/workspaces" = {
+		"ext/workspaces" = {
 		    format = "{icon}";
+		    ignore-hidden = true;
+		    on-click = "activate";
+		    on-click-right = "deactivate";
+		    sort-by-id = true;
+		};
+		
+		"dwl/window" = {
+		    format = "[{layout}] {title}";
 		};
 	    };
 	};

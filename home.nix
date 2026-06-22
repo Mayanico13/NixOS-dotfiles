@@ -34,6 +34,8 @@
       };
       history.size = 10000;
     };
+
+    programs.vesktop.enable = true;
      
     services.polkit-gnome.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
