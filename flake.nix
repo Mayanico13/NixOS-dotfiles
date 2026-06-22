@@ -3,13 +3,12 @@
 
 
     inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
       # home-manager -> manage user configuration
       home-manager = {
         type = "github";
 	owner = "nix-community";
 	repo = "home-manager";
-	ref = "release-26.05";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       lanzaboote = {

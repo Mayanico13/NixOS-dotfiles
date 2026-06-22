@@ -13,6 +13,7 @@
       xz
       unzip
       btop
+      pkgs.polkit_gnome
     ];
     
     programs.git = {
@@ -37,7 +38,6 @@
 
     programs.vesktop.enable = true;
      
-    services.polkit-gnome.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       Unit = {
       Description = "polkit-gnome-authentication-agent-1";
@@ -56,20 +56,7 @@
       };
     };
 
-    services.hyprpaper = {
-	enable = true;
-	settings = {
-	    preload = [
-		"/home/nico/.wallpapers/evening-sky.png"
-	    ];
-	    wallpaper = [
-		{
-		    monitor = "DP-1";
-		    path = "/home/nico/.wallpapers/evening-sky.png";
-		}
-	    ];
-	};
-    };
+    services.awww.enable = true;
         
     imports = [
       inputs.mango.hmModules.mango

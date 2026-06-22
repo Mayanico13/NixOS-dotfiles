@@ -5,7 +5,11 @@
     enable = true;
 
     autostart_sh = ''
-      waybar
+      waybar &
+      awww-daemon &
+      awww img /home/nico/.wallpapers/evening-sky.png &
+      polkit-agent-helper-1 &
+      systemctl start --user polkit-gnome-authentication-agent-1
     '';
     
     extraConfig = ''
