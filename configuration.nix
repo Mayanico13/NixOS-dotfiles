@@ -45,7 +45,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.hyprland}/bin/hyprland";
+        command = "mango";
         user = "nico";
       };
       default_session = initial_session;
@@ -118,7 +118,9 @@
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];
-
+  
+  # Enable MangoWM systemwise
+  programs.mango.enable = true;
     boot.lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";

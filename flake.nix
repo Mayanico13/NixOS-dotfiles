@@ -3,25 +3,37 @@
 
 
     inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
       # home-manager -> manage user configuration
       home-manager = {
-        url = "github:nix-community/home-manager/release-25.11";
-        # The 'follows' keyword is used to prevent compatibility issues
+        type = "github";
+	owner = "nix-community";
+	repo = "home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       lanzaboote = {
-        url = "github:nix-community/lanzaboote/v1.0.0";
+        type = "github";
+	owner = "nix-community";
+	repo = "lanzaboote";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       # Zen browser flake
       zen-browser = {
-        url = "github:youwen5/zen-browser-flake";
+	type = "github";
+	owner = "youwen5";
+	repo = "zen-browser-flake";
         inputs.nixpkgs.follows = "nixpkgs";
+      };
+      # MangoWM flake
+      mango = {
+	type = "github";
+	owner = "mangowm";
+	repo = "mango";
+	inputs.nixpkgs.follows = "nixpkgs";
       };
     };
 
-    outputs = { self, nixpkgs, home-manager, lanzaboote, ... }@inputs: {
+    outputs = { self, nixpkgs, home-manager, lanzaboote, mango, ... }@inputs: {
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -32,13 +44,13 @@
         lanzaboote.nixosModules.lanzaboote
         ./configuration.nix 
 	./fonts.nix
+	inputs.mango.nixosModules.mango
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.nico = import ./home.nix;
-          
         }
       ];
     };

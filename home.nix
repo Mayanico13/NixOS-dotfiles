@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
     home.username = "nico";
@@ -6,6 +6,7 @@
 
     # Packages installed to user profile
     home.packages = with pkgs; [
+      zed-editor
       which
       fastfetch
       zip
@@ -60,17 +61,21 @@
 		"/home/nico/.wallpapers/evening-sky.png"
 	    ];
 	    wallpaper = [
-		"DP-1,/home/nico/.wallpapers/evening-sky.png"
+		{
+		    monitor = "DP-1";
+		    path = "/home/nico/.wallpapers/evening-sky.png";
+		}
 	    ];
 	};
     };
         
     imports = [
+      inputs.mango.hmModules.mango
       ./home
     ];
 
     # This value determines the home Manager relase
     # compatible with configuration.
     
-    home.stateVersion = "25.11";
+    home.stateVersion = "26.05";
 }
