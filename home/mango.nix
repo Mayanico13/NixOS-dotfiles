@@ -31,6 +31,8 @@
 
       xkb_rules_layout = "it";
 
+      mouse_accel_profile = 0;
+
       # Keybinds
       bind = [
 	"SUPER,T,spawn,kitty"
