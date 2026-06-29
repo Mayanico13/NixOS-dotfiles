@@ -29,7 +29,7 @@
       animation_duration_open = 400;
       animation_duration_close = 400;
 
-      xkb_rules_layout = "it";
+      xkb_rules_layout = "us";
 
       mouse_accel_profile = 0;
 
