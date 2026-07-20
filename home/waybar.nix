@@ -12,26 +12,22 @@
 		    "DP-1"
 		];
 		modules-left = [
-		    "ext/workspaces"
+		    "hyprland/workspaces"
 		];
 		modules-center = [
-		    "dwl/window"
+		    "hyprland/window"
 		];
 		modules-right = [
 		    "pulseaudio"
 		    "clock"
 		];
 		
-		"ext/workspaces" = {
+		"hyprland/workspaces" = {
 		    format = "{icon}";
-		    ignore-hidden = true;
-		    on-click = "activate";
-		    on-click-right = "deactivate";
-		    sort-by-id = true;
 		};
 		
-		"dwl/window" = {
-		    format = "[{layout}] {title}";
+		"hyprland/window" = {
+		    format = "{title}";
 		};
 
 		"pulseaudio" = {
@@ -62,6 +58,11 @@
 		color: #11111b;
 		padding: 0 10px;
 		border-radius: 5px;
+	    }
+
+	    #workspaces button {
+		background: none;
+		color: #92e2d5;
 	    }
 	";
     };

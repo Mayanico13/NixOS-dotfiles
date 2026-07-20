@@ -42,7 +42,6 @@
     services.awww.enable = true;
         
     imports = [
-      inputs.mango.hmModules.mango
       ./home
     ];
 

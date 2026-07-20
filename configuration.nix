@@ -44,7 +44,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "mango";
+        command = "start-hyprland";
         user = "nico";
       };
       default_session = initial_session;
@@ -141,8 +141,13 @@
   };
 
 
-  # Enable MangoWM systemwise
-  programs.mango.enable = true;
+  # Enable Hyprland systemwise
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true; # recommended for most users
+    xwayland.enable = true; # Xwayland can be disabled.
+  };
+
     boot.lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";

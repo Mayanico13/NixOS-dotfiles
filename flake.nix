@@ -24,16 +24,9 @@
 	repo = "zen-browser-flake";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-      # MangoWM flake
-      mango = {
-	type = "github";
-	owner = "mangowm";
-	repo = "mango";
-	inputs.nixpkgs.follows = "nixpkgs";
-      };
     };
 
-    outputs = { self, nixpkgs, home-manager, lanzaboote, mango, ... }@inputs: {
+    outputs = { self, nixpkgs, home-manager, lanzaboote, ... }@inputs: {
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -44,7 +37,6 @@
         lanzaboote.nixosModules.lanzaboote
         ./configuration.nix 
 	./fonts.nix
-	inputs.mango.nixosModules.mango
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
