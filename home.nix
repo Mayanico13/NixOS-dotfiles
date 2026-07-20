@@ -13,14 +13,15 @@
       xz
       unzip
       btop
-      pkgs.polkit_gnome
+      lxqt.lxqt-policykit
+      pavucontrol
     ];
     
     programs.git = {
       enable = true;
-      userName = "Mayanico13";
-      userEmail = "90696888+Mayanico13@users.noreply.github.com";
-      extraConfig = {
+      settings = {
+      	user.name = "Mayanico13";
+      	user.email = "90696888+Mayanico13@users.noreply.github.com";
 	init.defaultbranch = "main";
       };
     };
@@ -37,24 +38,6 @@
     };
 
     programs.vesktop.enable = true;
-     
-    systemd.user.services.polkit-gnome-authentication-agent-1 = {
-      Unit = {
-      Description = "polkit-gnome-authentication-agent-1";
-      Wants = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-      };
-    };
 
     services.awww.enable = true;
         

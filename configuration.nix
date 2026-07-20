@@ -9,7 +9,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./packages
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -53,7 +52,7 @@
   };
 
 
-  # Polkit configuration. Polkit-gnome is located in home.nix
+  # Polkit configuration
   security.polkit.enable = true;
   security.polkit.extraConfig = ''
     polkit.addRule(function (action, subject) {
@@ -72,7 +71,7 @@
   '';
 
   # Configure keymap in X11
-  services.xserver.xkb.layout = "it";
+  services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
@@ -86,8 +85,12 @@
     pulse.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
+  # Install Steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nico = {
@@ -98,7 +101,6 @@
    ];
   };
 
-  # programs.firefox.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -110,6 +112,18 @@
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
  
+  # Install unfree packages
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-unwrapped"
+  ];
+
+
+  # Install insecure packages
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.29.2"
+  ];
+ 
   # Enable zsh and set it as default shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -119,6 +133,14 @@
     "/share/xdg-desktop-portal"
   ];
   
+  # Portal configuration
+  xdg.portal = {
+    enable = true; 
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
+  };
+
+
   # Enable MangoWM systemwise
   programs.mango.enable = true;
     boot.lanzaboote = {
