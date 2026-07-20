@@ -25,7 +25,7 @@
       bind = [
         "$mod, T, exec, kitty"
         "$mod, Q, killactive,"
-	"$mod, R, exec, rofi -show run"
+	"$mod, R, exec, rofi -show drun"
         "$mod, F, exec, zen"
 	"$mod, L, exec, wlogout"
         "$mod, space, togglefloating,"
@@ -65,14 +65,13 @@
         "$mod, mouse:273, resizewindow"
       ];
       general = {
-        border_size = "1";
-        gaps_in = "5, 5, 5, 5";
-        gaps_out = "5, 5, 5, 5";
+        border_size = "2";
+        gaps_in = "8, 8, 8, 8";
+        gaps_out = "8, 8, 8, 8";
         gaps_workspaces = "0";
-       # col.inactive_border = "#E94057";
-       # col.active_border = "#3b8d99";
-       # col.nogroup_border = "#240b36";
-       # col.nogroup_border_active = "#93291E";
+	
+        "col.inactive_border" = "rgba(45475aff)";
+        "col.active_border" = "rgba(b4befeff)";
         layout = "dwindle";
         no_focus_fallback = true;
         resize_on_border = true;
@@ -81,9 +80,10 @@
         allow_tearing = true;
         resize_corner = "0"; 
        };
+
        decoration = {
-         rounding = "6";
-         rounding_power = "4.0";
+         rounding = "10";
+         rounding_power = "2.0";
          active_opacity = "1";
          inactive_opacity = "1";
          fullscreen_opacity = "1";
@@ -92,19 +92,35 @@
          #border_part_of_window = true;
          
          shadow = {
-           enabled = false;
-#           range = "4";
-#           render_power = "3";
-#           sharp = false;
-#           ignore_window = true;
-#           color = "0xee1a1a1a";
-#          #offset = [0 0];
-#           scale = "1.0";
+           enabled = true;
+           range = "4";
+           render_power = "3";
+           color = "0xee1a1a1a";
           };
-       };
+
+          blur = { 
+	    enabled = true;
+	    size = "3";
+	    passes = "1";
+	    vibrancy = "0.1696";
+          };
+        };
  
        animations = {
-         enabled = true;  
+         enabled = true;
+	 bezier = [
+            "myBezier, 0.05, 0.9, 0.1, 1.05"
+            "overshot, 0.13, 0.99, 0.29, 1.1" # Effetto "rimbalzo" molto popolare
+         ];
+
+          animation = [
+              "windows, 1, 5, overshot, slide"          # Animazione di apertura finestre
+              "windowsOut, 1, 5, default, popin 80%"    # Animazione di chiusura finestre
+              "border, 1, 10, default"                  # Transizione del colore del bordo
+              "borderangle, 1, 8, default"              # Rotazione del gradiente sul bordo
+              "fade, 1, 7, default"                     # Effetto dissolvenza
+              "workspaces, 1, 6, overshot, slide"       # Cambio spazio di lavoro
+          ];  
        };
 	misc = {
 	  disable_hyprland_logo = true;
