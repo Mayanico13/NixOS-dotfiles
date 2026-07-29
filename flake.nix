@@ -1,10 +1,8 @@
 {
-    description = "First NixOS flake";
-
+    description = "My cutie flake";
 
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      # home-manager -> manage user configuration
       home-manager = {
         type = "github";
 	owner = "nix-community";
@@ -28,23 +26,30 @@
 
     outputs = { self, nixpkgs, home-manager, lanzaboote, ... }@inputs: {
 
-    nixosConfigurations.rigel = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    nixosConfigurations = {
+      rigel = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          lanzaboote.nixosModules.lanzaboote
+          ./systems/rigel
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.nico = import ./home/nico;
+          }
+        ];
+      };
 
-      specialArgs = { inherit inputs; };
-
-      modules = [
-        lanzaboote.nixosModules.lanzaboote
-        ./configuration.nix 
-	./fonts.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs; };
-          home-manager.users.nico = import ./home.nix;
-        }
-      ];
+      shaula = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+	  ./systems/shaula
+        ];
+      };
     };
   };
 }
