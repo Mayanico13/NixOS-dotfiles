@@ -114,8 +114,8 @@
   users.defaultUserShell = pkgs.zsh; 
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3010 3456 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 3010 3456 53 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
