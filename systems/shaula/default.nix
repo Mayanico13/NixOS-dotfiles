@@ -104,7 +104,11 @@
     settings = {
       PermitRootLogin = "no";
     };
+    settings.AllowAgentForwarding = true;
   };
+
+  # We don't want it on the server
+  programs.ssh.startAgent = false;
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh; 
