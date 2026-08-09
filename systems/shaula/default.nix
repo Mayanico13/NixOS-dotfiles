@@ -12,6 +12,7 @@
       ../../modules/nixos/services/forgejo.nix
       ../../modules/nixos/services/vikunja.nix
       ../../modules/nixos/services/adguard.nix
+      ../../modules/nixos/services/navidrome.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
