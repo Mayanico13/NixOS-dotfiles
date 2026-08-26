@@ -12,6 +12,7 @@
       ../../modules/nixos/services/forgejo.nix
       ../../modules/nixos/services/vikunja.nix
       ../../modules/nixos/services/adguard.nix
+      ../../modules/nixos/services/navidrome.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -104,14 +105,18 @@
     settings = {
       PermitRootLogin = "no";
     };
+    settings.AllowAgentForwarding = true;
   };
+
+  # We don't want it on the server
+  programs.ssh.startAgent = false;
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh; 
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3010 3456 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 3010 3456 53 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
