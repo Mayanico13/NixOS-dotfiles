@@ -1,7 +1,9 @@
-{ lib, pkgs, config, ... }:
-
-
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   services.forgejo = {
     enable = true;
     database.type = "postgres";

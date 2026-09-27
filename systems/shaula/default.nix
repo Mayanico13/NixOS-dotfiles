@@ -1,19 +1,21 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/base
-      ../../modules/nixos/services/forgejo.nix
-      ../../modules/nixos/services/vikunja.nix
-      ../../modules/nixos/services/adguard.nix
-      ../../modules/nixos/services/navidrome.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/base
+    ../../modules/nixos/services/forgejo.nix
+    ../../modules/nixos/services/vikunja.nix
+    ../../modules/nixos/services/adguard.nix
+    ../../modules/nixos/services/navidrome.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -36,14 +38,11 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
-  # useXkbConfig = true; # use xkb.options in tty.
+    # useXkbConfig = true; # use xkb.options in tty.
   };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
-
-
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -66,18 +65,17 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nico = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArP2UCYs8sI/5Zez8axEEJxWKnElx2S5F5ovScwyQeS nico@rigel"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM9Yski/cwfvVuqRwnJ0EJ2p0O1994J4F/hLxfvvnnrJ nico@heze"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhr7EIph2K8R/XFHHK7ovPJfj0drs8SMGTkIopFSC4c nico@nashira.local"
     ];
     packages = with pkgs; [
-      
     ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -97,7 +95,6 @@
 
   # List services that you want to enable:
 
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
@@ -112,11 +109,11 @@
   programs.ssh.startAgent = false;
 
   programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh; 
+  users.defaultUserShell = pkgs.zsh;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3010 3456 53 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [3010 3456 53];
+  networking.firewall.allowedUDPPorts = [53];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
@@ -143,5 +140,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stabl>
   system.stateVersion = "26.05"; # Did you read the comment?
-
 }

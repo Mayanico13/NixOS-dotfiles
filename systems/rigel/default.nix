@@ -1,16 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, inputs, ... }:
-
 {
-
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/base
-    ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/base
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = lib.mkForce false;
@@ -33,12 +35,11 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "it";
-  #  useXkbConfig = true; # use xkb.options in tty.
+    #  useXkbConfig = true; # use xkb.options in tty.
   };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
-
 
   # Greetd setup for autologin and executing niri
   services.greetd = {
@@ -51,7 +52,6 @@
       default_session = initial_session;
     };
   };
-
 
   # Polkit configuration
   security.polkit.enable = true;
@@ -96,13 +96,13 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nico = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-    tree
-   ];
+      tree
+    ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -112,19 +112,19 @@
     git
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
- 
-  # Install unfree packages
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam-unwrapped"
-  ];
 
+  # Install unfree packages
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam-unwrapped"
+    ];
 
   # Install insecure packages
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-10.29.2"
   ];
- 
+
   # Enable zsh and set it as default shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -133,14 +133,13 @@
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];
-  
+
   # Portal configuration
   xdg.portal = {
-    enable = true; 
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = [ "gtk" ];
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    config.common.default = ["gtk"];
   };
-
 
   # Enable Hyprland systemwise
   programs.hyprland = {
@@ -149,10 +148,10 @@
     xwayland.enable = true; # Xwayland can be disabled.
   };
 
-    boot.lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-    };
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -197,4 +196,3 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11"; # Did you read the comment?
 }
-

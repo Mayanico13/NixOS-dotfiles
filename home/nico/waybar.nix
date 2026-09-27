@@ -1,48 +1,45 @@
-{ pkgs, ... }:
+{pkgs, ...}: {
+  programs.waybar = {
+    enable = true;
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 30;
+        output = [
+          "DP-1"
+        ];
+        modules-left = [
+          "hyprland/workspaces"
+        ];
+        modules-center = [
+          "hyprland/window"
+        ];
+        modules-right = [
+          "pulseaudio"
+          "clock"
+        ];
 
-{
-    programs.waybar = {
-	enable = true;
-	settings = {
-	    mainBar = {
-		layer = "top";
-		position = "top";
-		height = 30;
-		output = [
-		    "DP-1"
-		];
-		modules-left = [
-		    "hyprland/workspaces"
-		];
-		modules-center = [
-		    "hyprland/window"
-		];
-		modules-right = [
-		    "pulseaudio"
-		    "clock"
-		];
-		
-		"hyprland/workspaces" = {
-		    format = "{icon}";
-		};
-		
-		"hyprland/window" = {
-		    format = "{title}";
-		};
+        "hyprland/workspaces" = {
+          format = "{icon}";
+        };
 
-		"pulseaudio" = {
-		    format = "{volume}% {icon}";
-                    format-icons = {
-			default = ["" "" ""];
-		    };
-		    
-		    on-click = "pavucontrol";
-		    on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-		};
+        "hyprland/window" = {
+          format = "{title}";
+        };
 
-	    };
-	};
-	style = "
+        "pulseaudio" = {
+          format = "{volume}% {icon}";
+          format-icons = {
+            default = ["" "" ""];
+          };
+
+          on-click = "pavucontrol";
+          on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        };
+      };
+    };
+    style = "
 	    *{
 		font-family: 'FiraCode Nerd Font', 'FiraCode NF', 'monospace';
 		font-size: 13px;
@@ -65,5 +62,5 @@
 		color: #92e2d5;
 	    }
 	";
-    };
+  };
 }
