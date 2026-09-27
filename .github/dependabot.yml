@@ -5,8 +5,7 @@ updates:
     schedule:
       interval: "weekly"
       time: "03:00"
+      timezone: "Europe/Rome"
     commit-message:
       prefix: "chore"
       include: "scope"
-    cooldown: 
-      default-days: 7
