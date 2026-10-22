@@ -1,10 +1,9 @@
 {
   services.adguardhome = {
     enable = true;
-    host = "0.0.0.0";
-    port = 3003;
     openFirewall = true;
     settings = {
+      http.address = "10.234.65.33:3003";
       dns = {
         upstream_dns = [
           "1.1.1.1"
