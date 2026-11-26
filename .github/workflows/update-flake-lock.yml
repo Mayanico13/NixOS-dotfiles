@@ -1,0 +1,44 @@
+name: "update-flake-lock"
+
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: '0 6 * * *' # daily at 1 am EST/2 am EDT
+
+jobs:
+  nix-flake-update:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v12
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29
+        id: pr
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          git-author-name: Azha-bot
+          git-author-email: 361347187+Azha-bot@users.noreply.github.com
+          git-committer-name: Azha-bot
+          git-committer-email: 361347187+Azha-bot@users.noreply.github.com
+          commit-msg: "flake.lock: update all inputs"
+          pr-title: "flake.lock: update all inputs"
+          branch: update-flake-inputs
+          pr-body: |
+            ```
+            {{ env.GIT_COMMIT_MESSAGE }}
+            ```
+      - name: Wait for Checks & Merge
+        run: |
+          sleep 60
+          gh pr checks "$PR" --watch --fail-fast
+          gh pr merge --rebase --delete-branch "$PR"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          PR: ${{ steps.pr.outputs.pull-request-url }}
